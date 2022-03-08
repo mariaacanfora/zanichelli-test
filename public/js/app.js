@@ -2014,6 +2014,7 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           _this.done = 'Data saved successfully!';
           _this.errors = [];
+          _this.input = {};
         }
       })["catch"](function (error) {
         _this.errors = error.message.split(',');
@@ -37657,7 +37658,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "content" }, [
     _vm.done
       ? _c("div", [
           _c("div", { staticClass: "alert alert-success" }, [
@@ -37669,7 +37670,7 @@ var render = function () {
           _c("div", { staticClass: "alert alert-danger" }, [
             _c(
               "ul",
-              { staticClass: "d-inline-block" },
+              { staticClass: "d-inline-block mb-0" },
               _vm._l(_vm.errors, function (error, i) {
                 return _c("li", { key: i }, [_vm._v(" " + _vm._s(error) + " ")])
               }),
@@ -37694,7 +37695,7 @@ var render = function () {
         _c("div", { staticClass: "col-md-4" }, [
           _c(
             "label",
-            { staticClass: "form-label", attrs: { for: "validationCustom01" } },
+            { staticClass: "form-label", attrs: { for: "name-field" } },
             [_vm._v("Name")]
           ),
           _vm._v(" "),
@@ -37708,7 +37709,13 @@ var render = function () {
               },
             ],
             staticClass: "form-control",
-            attrs: { type: "text", name: "name", required: "" },
+            attrs: {
+              type: "text",
+              id: "name-field",
+              name: "name",
+              required: "",
+              placeholder: "Insert your name",
+            },
             domProps: { value: _vm.input.name },
             on: {
               input: function ($event) {
@@ -37724,7 +37731,7 @@ var render = function () {
         _c("div", { staticClass: "col-md-4" }, [
           _c(
             "label",
-            { staticClass: "form-label", attrs: { for: "validationCustom02" } },
+            { staticClass: "form-label", attrs: { for: "last-name-field" } },
             [_vm._v("Last name")]
           ),
           _vm._v(" "),
@@ -37738,7 +37745,13 @@ var render = function () {
               },
             ],
             staticClass: "form-control",
-            attrs: { type: "text", name: "last_name", required: "" },
+            attrs: {
+              type: "text",
+              id: "last-name-field",
+              name: "last_name",
+              required: "",
+              placeholder: "Insert your last name",
+            },
             domProps: { value: _vm.input.last_name },
             on: {
               input: function ($event) {
@@ -37754,10 +37767,7 @@ var render = function () {
         _c("div", { staticClass: "col-md-4" }, [
           _c(
             "label",
-            {
-              staticClass: "form-label",
-              attrs: { for: "validationCustomUsername" },
-            },
+            { staticClass: "form-label", attrs: { for: "email-field" } },
             [_vm._v("Email")]
           ),
           _vm._v(" "),
@@ -37781,7 +37791,13 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "text", name: "email", required: "" },
+              attrs: {
+                type: "text",
+                id: "email-field",
+                name: "email",
+                required: "",
+                placeholder: "e.g. mario.rossi@gmail.com",
+              },
               domProps: { value: _vm.input.email },
               on: {
                 input: function ($event) {

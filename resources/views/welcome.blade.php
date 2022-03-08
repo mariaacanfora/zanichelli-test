@@ -71,9 +71,7 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height" id="app">
-            <div class="content">
-                <form-component></form-component>
-            </div>
+            <form-component></form-component>
         </div>
     </body>
 </html>
