@@ -26,8 +26,8 @@ class DataStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
-            'last_name' => 'required|max:150',
+            'name' => 'required|min:2|max:100',
+            'last_name' => 'required|min:2|max:150',
             'email' => 'required|email'
         ];
     }

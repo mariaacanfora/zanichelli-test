@@ -1969,17 +1969,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   //components: {FormComponent},
   data: function data() {
     return {
-      input: {}
+      input: {},
+      errors: [],
+      done: ''
     };
   },
   methods: {
     onFormSubmit: function onFormSubmit() {
+      var _this = this;
+
       window.axios.post('/api/store', this.input).then(function (resp) {
-        console.log(resp);
+        //console.log(resp.data);
+        if (resp.data.success === false) {
+          var errorMsgs = [];
+
+          for (var key in _this.input) {
+            //console.log(resp.data.data[key]);
+            if (resp.data.data[key]) {
+              errorMsgs.push(resp.data.data[key]);
+            }
+          }
+
+          _this.done = '';
+          throw new Error(errorMsgs);
+        } else {
+          _this.done = 'Data saved successfully!';
+          _this.errors = [];
+        }
+      })["catch"](function (error) {
+        _this.errors = error.message.split(',');
       });
     }
   }
@@ -37621,6 +37658,27 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _vm.done
+      ? _c("div", [
+          _c("div", { staticClass: "alert alert-success" }, [
+            _vm._v("\n              " + _vm._s(_vm.done) + "\n          "),
+          ]),
+        ])
+      : _vm.errors.length != 0
+      ? _c("div", [
+          _c("div", { staticClass: "alert alert-danger" }, [
+            _c(
+              "ul",
+              { staticClass: "d-inline-block" },
+              _vm._l(_vm.errors, function (error, i) {
+                return _c("li", { key: i }, [_vm._v(" " + _vm._s(error) + " ")])
+              }),
+              0
+            ),
+          ]),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "form",
       {

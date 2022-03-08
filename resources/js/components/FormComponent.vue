@@ -1,5 +1,20 @@
 <template>
   <div>
+      <div v-if="done">
+            <div class="alert alert-success">
+                {{done}}
+            </div>
+      </div>
+      <div v-else-if="errors.length != 0">
+            <div class="alert alert-danger">
+                <ul class="d-inline-block">
+                    <li v-for="(error, i) in errors" :key="i"> {{error}} </li>
+                </ul>
+            </div>
+      </div>
+
+      
+
       <form class="row g-3 needs-validation" @submit.prevent="onFormSubmit">
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label">Name</label>
@@ -31,13 +46,35 @@ export default {
     //components: {FormComponent},
     data() {
         return {
-            input: {}
+            input: {},
+            errors: [],
+            done: ''
         };
     },
     methods: {
         onFormSubmit(){
             window.axios.post('/api/store', this.input).then((resp) => {
-                console.log(resp);
+                //console.log(resp.data);
+
+                if(resp.data.success === false) {
+                    let errorMsgs = [];
+                    for (const key in this.input) {
+                        //console.log(resp.data.data[key]);
+                        if (resp.data.data[key]) {
+                            errorMsgs.push(resp.data.data[key])
+                        }
+                    }
+                    this.done = '';
+                    throw new Error(errorMsgs);
+                } else {
+                    this.done = 'Data saved successfully!'
+                    this.errors = []
+                }
+
+
+            }).catch((error) => {
+                this.errors = error.message.split(',')
+                
             })
         }
     }
